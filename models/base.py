@@ -11,10 +11,10 @@ class Base(nn.Module):
         self.fc3 = nn.Linear(size, size)
     
     def _call(self, x):
-        self.out = F.relu(self.fc1(x))
-        self.out = F.relu(self.fc2(x))
-        self.out = F.relu(self.fc3(x))
-        return self.out
+        out = F.relu(self.fc1(x))
+        out = F.relu(self.fc2(x))
+        out = F.relu(self.fc3(x))
+        return out
     
     def getOutSize(self):
         return self.size

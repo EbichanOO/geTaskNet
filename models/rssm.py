@@ -1,8 +1,6 @@
-#this is env-data to state model
+#this is env-data to nextstate model
 #coding utf-8
 import torch
-import torch.nn as nn
-import torch.nn.functional as F
 from base import Base
 class RSSM(Base):
     def __init__(self, size):
@@ -16,7 +14,6 @@ class RSSM(Base):
         # input is torch variable.
         # not numpy since this rnn get other model's output.
         x = x + self.reserve
-        super(RSSM, self)._call(x)
-        self.reserve = self.out
-        
-        return self.out
+        out = self._call(x)
+        self.reserve = out
+        return out
