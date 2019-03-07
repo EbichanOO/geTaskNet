@@ -1,22 +1,17 @@
-#this is state to task model
+#this is state to nextstate model
 #the model update for 
 #coding utf-8
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
+from base import Base
 
-class STT(nn.Module):
-    def __init__(self, insize):
+class STT(Base):
+    def __init__(self, size):
         super(STT, self).__init__()
-        self.size = insize
-        self.fc1 = nn.Linear(self.size, self.size)
-        self.fc2 = nn.Linear(self.size, self.size)
-        self.fc3 = nn.Linear(self.size, self.size)
-    
+
     def reloss(self, opt):
         loss = F.
     
     def forward(self, x):
-        tmp = F.relu(self.fc1(x))
-        tmp = F.relu(self.fc2(x))
-        return F.relu(self.fc3(x))
+        super(STT, self)._call(x)

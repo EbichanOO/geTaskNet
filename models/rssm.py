@@ -3,17 +3,11 @@
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-class RSSM(nn.Module):
-    def __init__(self, insize):
-        super(RSSM, self).__init__()
-        self.size = insize[0]
-        self.fc1 = nn.Linear(self.size, self.size)
-        self.fc2 = nn.Linear(self.size, self.size)
-        self.fc3 = nn.Linear(self.size, self.size)
-        self.reserve = torch.zeros(self.size,)
-    
-    def getOutSize(self):
-        return self.size
+from base import Base
+class RSSM(Base):
+    def __init__(self, size):
+        super(RSSM, self).__init__(size)
+        self.reserve = torch.zeros(size,)
     
     def getReserve(self):
         return self.reserve
@@ -22,8 +16,7 @@ class RSSM(nn.Module):
         # input is torch variable.
         # not numpy since this rnn get other model's output.
         x = x + self.reserve
-        tmp = F.relu(self.fc1(x))
-        tmp = F.relu(self.fc2(x))
-        tmp = F.relu(self.fc3(x))
-        self.reserve = tmp
-        return tmp
+        super(RSSM, self)._call(x)
+        self.reserve = self.out
+        
+        return self.out
