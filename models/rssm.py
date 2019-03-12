@@ -2,6 +2,8 @@
 #coding utf-8
 import torch
 from base import Base
+from tools.cos_sim import cos_sim
+
 class RSSM(Base):
     def __init__(self, size):
         super(RSSM, self).__init__(size)
@@ -9,6 +11,9 @@ class RSSM(Base):
     
     def getReserve(self):
         return self.reserve
+    
+    def reward(self, realopt):
+        return cos_sim(self.reserve, realopt)
     
     def forward(self, x):
         # input is torch variable.
